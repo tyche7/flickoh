@@ -1,0 +1,71 @@
+Frankenweenie	Frankenweenie	0
+Butter	Butter	1
+Taken 2	Taken 2	1
+The House I Live In	The House I Live In	0
+The Paperboy	The Paperboy	0
+V/H/S	V[\\.\\s/]?H[\\.\\s/]?S	0
+Argo	\\s+Argo	1
+Atlas Shrugged: Part 2	Atlas Shrugged(:\\s*Part 2)?	0
+Here Comes the Boom	Here Comes the Boom	0
+Seven Psychopaths	Seven Psychopaths	0
+Sinister	Sinister	1
+Nobody Walks	Nobody Walks	1
+Smashed	Smashed	1
+War of the Buttons	War of the Buttons	0
+Holy Motors	Holy Motors	0
+Alex Cross	Alex Cross	1
+Paranormal Activity 4	Paranormal Activity(\\s+4)?	0
+The First Time	The First Time	1
+The Sessions	The Sessions	1
+Tai Chi 0	Tai Chi 0	0
+Chasing Mavericks	Chasing Mavericks	0
+Cloud Atlas	Cloud Atlas	0
+Fun Size	Fun Size	1
+Silent Hill: Revelation 3D	(Silent Hill)|(Revelation 3D)	0
+Flight	\\s+Flight	1
+The Man with the Iron Fists	The Man with the Iron Fists	0
+Wreck-It Ralph	Wreck(-|\\s+)It\\s+Ralph	0
+The Bay	(The Bay)|(THE BAY)	1
+The Details	The Details	1
+High Ground	High Ground	1
+Jack and Diane	Jack and Diane	0
+A Late Quartet	A Late Quartet	0
+This Must Be the Place	This Must Be the Place	0
+Skyfall	Skyfall	1
+The Comedy	The Comedy	1
+Nature Calls	Nature Calls	0
+Silver Linings Playbook	Silver Linings Playbook	0
+The Twilight Saga: Breaking Dawn - Part 2	The Twilight Saga(:)*\\s+(Breaking Dawn)?\\s*(-)*\\s*(Part\\s*2)?	0
+Anna Karenina	Anna Karenina	1	
+Dangerous Liaisons	Dangerous Liaisons	1
+Price Check	Price Check	1
+Red Dawn	Red Dawn	1
+Rise of the Guardians	Rise of the Guardians	1
+The Central Park Five	The Central Park Five	1
+Hitchcock	Hitchcock	1
+Rust & Bone	Rust & Bone	1
+Killing Them Softly	Killing Them Softly	0
+The Collection	The Collection	1
+Dragon	Dragon	1
+Playing for Keeps	Playing for Keeps	0
+Deadfall	Deadfall	1
+Hyde Park on Hudson	Hyde Park on Hudson	0
+Lay the Favorite	Lay the Favorite	0
+The Hobbit: An Unexpected Journey	The Hobbit	1
+Save the Date	Save the Date	0
+The Guilt Trip	The Guilt Trip	0
+Monsters Inc	Monsters Inc	0
+Amour	\\s+Amour	1
+Zero Dark Thirty	Zero Dark Thirty	0
+Cirque Du Soleil: Worlds Away	Worlds Away	1
+Jack Reacher	Jack Reacher	1
+This is 40	This is 40	1
+The Impossible	The Impossible	1
+Not Fade Away	Not Fade Away	1
+On the Road	On the Road	1
+Django Unchained	Django Unchained	0
+Les Miserables	Les Miserables	0
+Parental Guidance	Parental Guidance	1
+Promised Land	Promised Land	1
+Quartet	Quartet	1
+Hotel Transylvania	Hotel Transylvania	1
