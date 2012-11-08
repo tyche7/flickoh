@@ -1,1 +1,9 @@
 java flickoh.FilterTweets "filename"
+
+movielist 
+- covers movies released in October, November, and December
+- contains movie name, regular expression, CASE_INSENSITIVE INDICATOR
+
+not_in_movielist 
+- the movies having too general name
+- eg) Lincoln
