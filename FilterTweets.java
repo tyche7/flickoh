@@ -47,12 +47,11 @@ public class FilterTweets {
 	    br.close();
         	
 		br = new BufferedReader(new FileReader(filename));
-		Pattern p = Pattern.compile("\\{\"text\":\"(.*)\",\"contributors\".*\"coordinates\":.*\\}");
+		Pattern p = Pattern.compile("\\{\"text\":\"([^\"]*)\"");
 
 		Matcher m;
         String text = "";
- 		String fullline ="";
-        write(" { \"data\" : [" + "\n");
+        write(" { \"data\" : [" );
         while ((line = br.readLine()) != null) {
         	if (line.contains("????") || line.length() == 0 ) {
         		// skips when it matches on ????
@@ -60,13 +59,10 @@ public class FilterTweets {
         	
         		m = p.matcher(line);
         		
-				while (m.find()) {         
+				if(m.find()) {         
 					text= m.group(1);
-        			fullline= m.group();
+                    //System.out.println("text: " + text);
         		}
-
- 				//print only text	
-        		//write("text: "+ text +"\n"); 
 
                 String newline="";
                 Movie movie;
@@ -75,14 +71,13 @@ public class FilterTweets {
                     movie = movies.get(i);
 					Pattern pattern = movie.getPattern();	
 					m = pattern.matcher(text);
-					while (m.find()) { 
+					if (m.find()) { 
 						//write("movie "+movie.getName() +"\n"+ text +"\n");
 
-                        newline = fullline.substring(0,1) + "\"no\":" + i + ","+fullline.substring(1);
-                        if(theFirstLine) { write(newline); theFirstLine = false;}
+                        newline = line.substring(0,1) + "\"no\":" + i + ","+line.substring(1);
+                        if(theFirstLine) { write("\n"+newline); theFirstLine = false;}
                         else  write(",\n"+newline); 
 						movie.plusCount();
-                        break;
 					}
 				}
         	}
