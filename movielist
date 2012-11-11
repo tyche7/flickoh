@@ -1,10 +1,10 @@
 Frankenweenie	Frankenweenie	0
-Butter	Butter	1
+Butter	(\\s+|^|#)Butter\\s+	1
 Taken 2	Taken 2	1
 The House I Live In	The House I Live In	0
 The Paperboy	The Paperboy	0
-V/H/S	V[\\.\\s/]?H[\\.\\s/]?S	0
-Argo	\\s+Argo	1
+V/H/S	(\\s+|^|#)V[\\.\\s/]?H[\\.\\s/]?S\\s+	0
+Argo	(\\s+|^|#)Argo	1
 Atlas Shrugged: Part 2	Atlas Shrugged(:\\s*Part 2)?	0
 Here Comes the Boom	Here Comes the Boom	0
 Seven Psychopaths	Seven Psychopaths	0
@@ -42,11 +42,9 @@ Price Check	Price Check	1
 Red Dawn	Red Dawn	1
 Rise of the Guardians	Rise of the Guardians	1
 The Central Park Five	The Central Park Five	1
-Hitchcock	Hitchcock	1
 Rust & Bone	Rust & Bone	1
 Killing Them Softly	Killing Them Softly	0
 The Collection	The Collection	1
-Dragon	Dragon	1
 Playing for Keeps	Playing for Keeps	0
 Deadfall	Deadfall	1
 Hyde Park on Hudson	Hyde Park on Hudson	0
