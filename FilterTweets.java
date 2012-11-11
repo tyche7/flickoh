@@ -47,7 +47,8 @@ public class FilterTweets {
 	    br.close();
         	
 		br = new BufferedReader(new FileReader(filename));
-		Pattern p = Pattern.compile("\\{\"text\":\"([^\"]*)\"");
+		//Pattern p = Pattern.compile("\"text\":\"(.*)\",\"[a-zA-Z]*\":");
+		Pattern p = Pattern.compile("\"text\":\"(((?!\"[a-zA-Z]*\":).)*)\",\"[a-zA-Z]*\":");
 
 		Matcher m;
         String text = "";
