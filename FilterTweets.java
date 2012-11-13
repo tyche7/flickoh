@@ -53,6 +53,7 @@ public class FilterTweets {
 		Matcher m;
         String text = "";
         write(" { \"data\" : [" );
+        boolean theFirstLine=true;
         while ((line = br.readLine()) != null) {
         	if (line.contains("????") || line.length() == 0 ) {
         		// skips when it matches on ????
@@ -67,7 +68,6 @@ public class FilterTweets {
 
                 String newline="";
                 Movie movie;
-                boolean theFirstLine=true;
 				for(int i=0;i<movies.size();i++){
                     movie = movies.get(i);
 					Pattern pattern = movie.getPattern();	
