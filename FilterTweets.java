@@ -23,9 +23,9 @@ public class FilterTweets {
 		// create arraylist of movie object
 		while((line = br.readLine()) != null){
 			String[] splits = line.split("\\t");
-			String name = splits[0];
-			String moviePatternString = splits[1];
-			int caseInsensitiveOption = Integer.valueOf(splits[2]);
+			String name = splits[0].trim();
+			String moviePatternString = splits[1].trim();
+			int caseInsensitiveOption = Integer.valueOf(splits[2]).trim();
 			
 			System.out.println(name + " : " + moviePatternString + " :" + splits[2]);
 			
