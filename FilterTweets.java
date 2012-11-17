@@ -25,7 +25,7 @@ public class FilterTweets {
 			String[] splits = line.split("\\t");
 			String name = splits[0].trim();
 			String moviePatternString = splits[1].trim();
-			int caseInsensitiveOption = Integer.valueOf(splits[2]).trim();
+			int caseInsensitiveOption = Integer.valueOf(splits[2].trim());
 			
 			System.out.println(name + " : " + moviePatternString + " :" + splits[2]);
 			
