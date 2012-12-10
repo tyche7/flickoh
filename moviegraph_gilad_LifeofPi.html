@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Force-Directed Layout</title>
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/d3.v2.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/force.css"/>
+  </head>
+  <body>
+	<div id="title_label"></div>
+	<div id="description_label"></div>
+	<div id="tweets"></div>
+    <div id="chart"></div>
+	<div class="div_legend">
+	<div class="div_left" id="legend_size_area"></div>
+	<div class="div_right"id="legend_color_area"></div>
+	
+	</div>
+    <script>
+	var w = 1100,  //960
+	    h = 700,  //500
+	    //fill = d3.scale.category20();
+		fill = d3.scale.linear().domain([0,4]).range(["#e6550d","#1f77b4"]) 
+		//#e6550d -orange   #1f77b4 - blue 
+
+	var legend_size_area = d3.select("#legend_size_area").append("svg")
+		.attr("width", 500)
+		.attr("height", 50)
+		
+	var legend_color_area = d3.select("#legend_color_area").append("svg")
+		.attr("width", 900)
+		.attr("height",100)
+		
+	var vis = d3.select("#chart").append("svg")
+	    .attr("width", w)
+	    .attr("height", h);
+
+
+
+	d3.json("gilad_LifeofPi_d3.json", function(json) {
+
+
+	  $("#title_label").text(json.movie);
+	  $("#description_label").text(json.totalTweets+" tweets from @"+json.targetUser+"'s social network on Twitter");
+
+	  var tweet_label = d3.select("#tweets").append("p");
+
+	  var legend_size = legend_size_area.selectAll("circle").data(["#9467bd", "#dadaeb", "#dadaeb"])
+		.enter().append("circle")
+		.attr("cx", function(d,i){ return 100 +130*i; })
+		.attr("cy", function(d,i){ return 25; })
+		.attr("r", function(d,i){ return 15-i*3; })
+		.style("fill",function(d,i){ return d; });
+		
+	 var size_labels = legend_size_area.selectAll("text").data(["SIZE","Himself", "Direct Friend", "Indirect Friend"])
+		.enter().append("text")
+		.text(function(d){ return d;})
+		.attr("x", function(d,i){ if(i==0) return 30; else return 120*i+10-(3-i)*5;})
+		.attr("y", 30)
+		.attr("font-family","arial")
+		.attr("font-size", function(d,i){if (i==0) return "16px"; else return "15px";})
+		.attr("fill","black");
+		
+	 var legend_color = legend_color_area.selectAll("rect").data([0,1,2,3,4])
+		.enter().append("rect")
+		.attr("x", function(d){ return 100+d*80; })
+		.attr("y", function(d){ return 10;})
+		.attr("width", 80)
+		.attr("height",30)
+		.style("fill", function(d){ return fill(d);}) //console.log(fill(d));
+	
+	var color_labels = legend_color_area.selectAll("text").data(["COLOR","Negative","Neutral", "Positive"])
+		.enter().append("text")
+		.text(function(d){ return d;})
+		.attr("x", function(d,i){ if(i==0) return 0; else return -50+80*2*i;})
+		.attr("y", 30)
+		.attr("font-family","arial")
+		.attr("font-size", function(d,i){if (i==0) return "16px"; else return "15px";})
+		.attr("fill",function(d,i){if(i==0) return "black"; else return "white";});
+		
+		
+	  var force = d3.layout.force()
+	      .gravity(0.8)   //if gravity is negative, the nodes are away from the center; thus, set between 0.5~1
+	      .charge(-500)  //original value: -120 -> -400 
+						//kind of like magnets, nodes have a charge - positive(attraction force), negative (repelling force)  
+	      .linkDistance(150)  //original value: 30 -> 150 
+	      .nodes(json.nodes)
+	      .links(json.links)
+	      .size([w, h])
+	      .start();
+
+
+
+	
+
+		var n = 5;
+
+		  force.start();
+		  for (var i = n* n; i > 0; --i) force.tick();
+		  force.stop();
+
+		  var link = vis.selectAll("line.link")
+		      .data(json.links)
+		    .enter().append("line")
+		      .attr("class", "link")
+			  .style("stroke", function(d){return "#bcbddc"})  //not working
+		      .style("stroke-width", function(d) { return Math.sqrt(d.value); })
+		      .attr("x1", function(d) { return d.source.x; })
+		      .attr("y1", function(d) { return d.source.y; })
+		      .attr("x2", function(d) { return d.target.x; })
+		      .attr("y2", function(d) { return d.target.y; });
+
+		  var node = vis.selectAll("circle.node")
+		      .data(json.nodes)
+		      .enter().append("circle")
+		      .attr("class", "node")
+		      .attr("cx", function(d) { return d.x; })
+		      .attr("cy", function(d) { return d.y; })
+		    .attr("r", function(d){ return 15- d.level*3;})
+			.style("fill", function(d) { 
+				if(d.name==json.targetUser) return "#9467bd";//purple
+				if(d.noTweets == 0) return "#dadaeb"; //light purple-grey
+				else return fill(d.sentiment); });
+
+
+
+		node.append("title")
+		      .text(function(d) { return "@"+d.name; });
+
+		node.on("mouseover", function(d) {
+			var tweetTexts="@"+d.name;
+
+			for (var i=0;i<d.noTweets;i++){
+				//console.log(d.tweets[i].text);
+				if (i==0) tweetTexts += " - "
+				tweetTexts += d.tweets[i].text + "  ";
+			}//end if
+
+				tweet_label
+				.style("color", fill(d.sentiment))
+				.text(tweetTexts);
+
+
+			 }) 
+	         .on("mouseout", function(d) { 
+	                  //console.log("mouseout"); 
+				});				
+
+
+	});
+
+
+
+
+	</script>
+  </body>
+</html>
