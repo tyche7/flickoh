@@ -1,4 +1,4 @@
-package flickoh;
+//package flickoh;
 
 import java.util.*;
 import java.io.BufferedReader;
@@ -7,13 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.String;
 
 public class FilterTweets {
+	
+	static public String fn;
 
 	public static void main(String[] args) throws IOException {
 		
 		if (args[0] == null) return;
 		String filename = args[0];
+		fn = filename;
 		
 		BufferedReader br = new BufferedReader(new FileReader("movielist"));
 		String line;
@@ -23,11 +27,11 @@ public class FilterTweets {
 		// create arraylist of movie object
 		while((line = br.readLine()) != null){
 			String[] splits = line.split("\\t");
-			String name = splits[0].trim();
-			String moviePatternString = splits[1].trim();
-			int caseInsensitiveOption = Integer.valueOf(splits[2].trim());
+			String name = splits[0];
+			String moviePatternString = splits[1];
+			int caseInsensitiveOption = Integer.valueOf(splits[2]);
 			
-			System.out.println(name + " : " + moviePatternString + " :" + splits[2]);
+			//System.out.println(name + " : " + moviePatternString + " :" + splits[2]);
 			
 			Pattern pattern;
 			switch (caseInsensitiveOption){
@@ -48,7 +52,7 @@ public class FilterTweets {
         	
 		br = new BufferedReader(new FileReader(filename));
 		//Pattern p = Pattern.compile("\"text\":\"(.*)\",\"[a-zA-Z]*\":");
-		Pattern p = Pattern.compile("\"text\":\"(((?!\"[a-zA-Z]*\":).)*)\",\"[a-zA-Z]*\":");
+		Pattern p = Pattern.compile("\"text\":\"(((?!\"[a-zA-Z]*\":).)*)\",\"[a-zA-Z_]*\":");
 
 		Matcher m;
         String text = "";
@@ -68,6 +72,7 @@ public class FilterTweets {
 
                 String newline="";
                 Movie movie;
+                //boolean theFirstLine=true;
 				for(int i=0;i<movies.size();i++){
                     movie = movies.get(i);
 					Pattern pattern = movie.getPattern();	
@@ -75,7 +80,7 @@ public class FilterTweets {
 					if (m.find()) { 
 						//write("movie "+movie.getName() +"\n"+ text +"\n");
 
-                        newline = line.substring(0,1) + "\"no\":" + i + ","+line.substring(1);
+                        newline = line.substring(0,1) + "\"no\": " + i + ","+line.substring(1, line.length()-1);
                         if(theFirstLine) { write("\n"+newline); theFirstLine = false;}
                         else  write(",\n"+newline); 
 						movie.plusCount();
@@ -99,8 +104,12 @@ public class FilterTweets {
     
     private static void write(String s) {
     	try {
-    		if (fw == null)
-    			fw = new FileWriter("movieFiltered.txt", false);
+    		if (fw == null) {
+    			//fw = new FileWriter("movieFiltered.txt", false);
+    			//String [] temp = fn.split("\\"); 
+    			String temp = "filtered_" + fn.substring(fn.lastIndexOf(92)+1);			
+    			fw = new FileWriter(temp, false);
+    		}
     		fw.write(s);
     	} catch (IOException e) {}
     }
